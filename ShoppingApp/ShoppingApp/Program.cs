@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using ShoppingApp.Models;
 
@@ -12,7 +13,13 @@ builder.Services.AddDbContext<ShoppingContext>(options =>
 {
     options.UseSqlServer(connectionString);
 });
-
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(opt =>
+                {
+                    opt.LoginPath = "/Account/Login";
+                    opt.AccessDeniedPath = "/Account/AccessDenied";
+                    opt.ReturnUrlParameter = "redirectUrl";
+                });
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -32,6 +39,7 @@ SeedData.SeedDatabase(context);
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
+app.UseAuthentication();
 app.UseRouting();
 
 app.UseAuthorization();
