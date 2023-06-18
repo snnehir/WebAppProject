@@ -1,0 +1,18 @@
+﻿@model IEnumerable<ShoppingApp.Models.Entities.Category>
+@{
+    var activeCategoryId = ViewBag.CategoryId != null ? ViewBag.CategoryId : 0;
+
+}
+
+<!-- list groups -->
+<div class="list-group mt-2">
+    <h5>Categories</h5>
+    @foreach (var item in Model)
+    {
+        var activeClass = activeCategoryId == item.Id ? "active btn-darkorange" : "";
+        <a asp-action="Index" asp-controller="Home" 
+            asp-route-categoryId="@item.Id" class="list-group-item list-group-item-action category-menu @activeClass">
+            @item.Name
+        </a>
+    }
+</div>

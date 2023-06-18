@@ -1,0 +1,36 @@
+﻿@model PaginationProductViewModel
+@{
+    ViewData["Title"] = "Shopping App";
+    var columnCount = 0;
+}
+
+@if (ViewBag.IsSearched)
+{
+    <p class="m-4">There are <strong>@Model.Products.Count()</strong> products found related to your search. </p>
+}
+<div class="row m-4">
+    <!-- product cards are displayed in partial views -->
+    @foreach (var product in Model.Products)
+    {
+        @if (columnCount != 0 && columnCount % 4 == 0)
+        {
+            @:</div><div class="row m-4">
+        }      
+        <div class="col-3">
+           <partial name="_ProductCard" model="product"/>
+        </div>
+          columnCount++;
+    }
+</div>
+
+<!-- bootstrap pagination -->
+<div>
+    <ul class="pagination pagination-lg">
+        @for (int i = 1; i <= Model.PagingInfo.TotalPages; i++)
+        {
+            <li class="page-item @(i==Model.PagingInfo.CurrentPage ? "active":"")">
+                <a asp-action="Index" asp-route-pageNo="@i" class="page-link">@i</a>
+            </li>
+        }
+    </ul>
+</div>

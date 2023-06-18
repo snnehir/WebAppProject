@@ -48,13 +48,26 @@
                         }
                     </ul>
                 </div>
-                
+                <div class="mx-5 w-25">
+                    <form asp-action="Index" asp-controller="Home" method="get">
+                        <div class="input-group align-items-md-center">
+                            <div class="form-outline w-75">
+                                <input type="search" name="searchTerm" class="form-control" placeholder="Search by product name, category or seller..." />
+                            </div>
+                            <button type="submit" class="btn btn-darkorange">
+                                <i class="fas fa-search text-white"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </nav>
     </header>
     <div class="container">
         <main role="main" class="pb-3">
             <div class="row">
+                <!-- list of product categories will be shown here -->
+                <div class="col-2">@await Component.InvokeAsync("Menu")</div>
                 <div class="col-10">
                     <main role="main" class="pb-3">
                         <!-- render view content -->

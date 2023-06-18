@@ -1,0 +1,16 @@
+﻿@model ShoppingApp.Models.Entities.Product
+
+
+<div class="card my-2 align-items-center">
+    <a class="card-text text-decoration-none" asp-action="ProductDetail" asp-controller="Home"
+       asp-route-productId="@Model.Id">
+
+        <div class="card-body">
+            <img src="@Model.ImageUrl" class="img-fluid" />
+            <h4 class="card-title text-black">@Model.Name</h4>
+            <p class="card-text text-black">@Model.Owner.FullName</p>
+        </div>
+    </a>
+    <h5 class="card-text text-end align-self-end my-2 me-2">@Model.UnitPrice $</h5>
+    <button class="btn btn-darkorange basket w-100 text-white mt-1" data-id="@Model.Id">Add to Cart</button>
+</div>
