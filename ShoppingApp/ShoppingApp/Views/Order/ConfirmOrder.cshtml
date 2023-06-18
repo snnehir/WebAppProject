@@ -1,0 +1,15 @@
+﻿@{
+	ViewData["Title"] = "Order is Taken";
+}
+
+<h2>Your order is taken!</h2>
+<a asp-controller="Order" asp-action="Index">View Orders</a>
+<canvas id="confetti"></canvas>
+
+<script>
+	document.addEventListener('DOMContentLoaded', () => {
+	const jsConfetti = new JSConfetti();
+    
+	jsConfetti.addConfetti()
+	});
+</script>

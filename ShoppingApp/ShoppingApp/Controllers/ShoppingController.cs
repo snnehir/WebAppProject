@@ -64,7 +64,7 @@ namespace ShoppingApp.Controllers
                     {
                         productCollection.ProductItems.Remove(item);
                         saveToSession(productCollection);
-                        return Json(new { message = $"Rlant with id {id} is removed." });
+                        return Json(new { message = $"Product with id {id} is removed." });
                     }
                     else
                     {
@@ -89,9 +89,9 @@ namespace ShoppingApp.Controllers
         }
 
 
-        private void saveToSession(ProductCollectionModel courseCollection)
+        private void saveToSession(ProductCollectionModel productCollection)
         {
-            var serialized = JsonSerializer.Serialize<ProductCollectionModel>(courseCollection);
+            var serialized = JsonSerializer.Serialize<ProductCollectionModel>(productCollection);
             HttpContext.Session.SetString("basket", serialized);
         }
         

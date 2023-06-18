@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using System.Security.Claims;
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -34,8 +35,19 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Profile">Profile</a>
                             </li>
                             <li class="nav-item mx-1">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Order" asp-action="Index">My Orders</a>
+                            </li>
+                            <li class="nav-item mx-1">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
                             </li>
+                            <!-- only users that having "seller" role can view this nav link -->
+                            @if (User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Equals("Seller"))
+                            {
+                                <li class="nav-item mx-1">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Sell" asp-action="Index">Sell</a>
+                                </li>
+                            }
+
                         }
                         else
                         {

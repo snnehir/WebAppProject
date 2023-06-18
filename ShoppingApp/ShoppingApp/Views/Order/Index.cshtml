@@ -1,14 +1,49 @@
-﻿@{
-	ViewData["Title"] = "Order is Taken";
+﻿@model IEnumerable<ShoppingApp.Models.Entities.Order>
+
+@{
+    ViewData["Title"] = "Index";
 }
 
-<h2>Your order is taken</h2>
-<canvas id="confetti"></canvas>
+<h3>My Orders</h3>
 
-<script>
-	document.addEventListener('DOMContentLoaded', () => {
-	const jsConfetti = new JSConfetti();
-    
-	jsConfetti.addConfetti()
-	});
-</script>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Order Id
+            </th>
+            <th>
+                Order Status
+            </th>
+            <th>
+                Order Date
+            </th>
+            <th>
+                Total Price
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.Id
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalPrice)
+                </td>
+                <td>
+                    @Html.ActionLink("Details", "Details", new { id = item.Id  })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

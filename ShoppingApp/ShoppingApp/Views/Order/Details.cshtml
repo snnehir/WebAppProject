@@ -1,0 +1,55 @@
+﻿@model IEnumerable<ShoppingApp.Models.Entities.OrderDetail>
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h3>Order Details</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Product Name
+            </th>
+            <th>
+                Unit Price
+            </th>
+            <th>
+                Quantity
+            </th>
+            <th>
+                Sub-Total Price
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            var totalPrice = 0;
+        }
+        @foreach (var item in Model)
+        {
+            totalPrice += item.Quantity * (int) item.UnitPrice;
+            
+            <tr>
+                <td>
+                    <img src="@item.Product.ImageUrl" width="50" height="100" class="img-fluid">
+                    <span>@item.Product.Name</span>
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UnitPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    @(item.Quantity * item.UnitPrice)
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="text-right">Total Price: <strong>@totalPrice $</strong></div>

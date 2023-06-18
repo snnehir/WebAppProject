@@ -11,5 +11,6 @@
         public User Owner { get; set; }
         public int CategoryId { get; set; }
         public Category Category { get; set; }
+        public ICollection<OrderDetail> Orders { get; set; } = new HashSet<OrderDetail>();
     }
 }

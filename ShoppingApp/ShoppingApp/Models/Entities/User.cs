@@ -9,5 +9,6 @@
         public string PasswordSalt { get; set; }
         public string Role { get; set; }
         public ICollection<Product> Products { get; set; } = new HashSet<Product>();
+        public ICollection<Order> Orders { get; set; } = new HashSet<Order>();
     }
 }
