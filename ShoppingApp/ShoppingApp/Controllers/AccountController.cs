@@ -162,5 +162,72 @@ namespace ShoppingApp.Controllers
         {
             return View();
         }
+
+        [Authorize]
+        public async Task<IActionResult> Profile()
+        {
+            var emailClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email);
+            var user = await _shoppingContext.Users.FirstOrDefaultAsync(u => u.Email.Equals(emailClaim.Value));
+            return View(user);
+        }
+
+        [Authorize]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var user = await _shoppingContext.Users.FindAsync(id);
+            var model = new UserEditViewModel()
+            {
+                Email = user.Email,
+                FullName = user.FullName,
+                Id = id,
+            };
+            return View(model);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> Edit(UserEditViewModel model)
+        {
+            var user = await _shoppingContext.Users.FindAsync(model.Id);
+            if (ModelState.IsValid)
+            {
+                user.FullName = model.FullName;
+                if (!string.IsNullOrEmpty(model.NewPassword))
+                {
+                    bool isValidPassword = Validation.IsValidPassword(model.NewPassword);
+                    if (!isValidPassword)
+                    {
+                        ViewBag.ErrorMessage = "Invalid password format.";
+                        return View();
+                    }
+                    var salt = SecurityHelper.GenerateSalt(70);
+                    var passwordHash = SecurityHelper.HashPassword(model.NewPassword, salt);
+                    user.PasswordSalt = salt;
+                    user.PasswordHash = passwordHash;
+                }
+                if (!model.Email.Equals(user.Email))
+                {
+                    var isValidEmail = Validation.IsValidEmail(model.Email);
+                    if (!isValidEmail)
+                    {
+                        ViewBag.ErrorMessage = "Invalid email.";
+                        return View();
+                    }
+                    var userExist = await _shoppingContext.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Email.Equals(model.Email));
+                    if (userExist != null)
+                    {
+                        ViewBag.ErrorMessage = "This email is already used.";
+                        return View();
+                    }
+                    user.Email = model.Email;
+                }
+
+                _shoppingContext.Users.Update(user);
+                await _shoppingContext.SaveChangesAsync();
+                ViewBag.SuccessMessage = "Profile is updated successfully!";
+            }
+
+            return View();
+        }
     }
 }
