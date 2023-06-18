@@ -1,0 +1,53 @@
+﻿@model ShoppingApp.Models.Entities.Product
+
+@{
+    ViewData["Title"] = "ProductDetail";
+}
+
+<div>
+    @if(Model == null)
+    {
+        <h3>Product Detail</h3>
+        <hr />
+        <div class="alert alert-danger">Product not found!</div>
+    }
+    else
+    {
+        <h3>@Model.Name</h3>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                Image
+            </dt>
+            <dd class="col-sm-10">
+                <img src="@Model.ImageUrl" class="img-fluid" />
+            </dd>
+            <dt class="col-sm-2">
+                Price
+            </dt>
+            <dd class="col-sm-10">
+                @Model.UnitPrice $
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Category)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Category.Name)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Owner)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Owner.FullName)
+            </dd>
+        </dl>
+    }
+    
+</div>
+

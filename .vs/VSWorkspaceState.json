@@ -2,7 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\ShoppingApp",
-    "\\ShoppingApp\\ShoppingApp"
+    "\\ShoppingApp\\ShoppingApp",
+    "\\ShoppingApp\\ShoppingApp\\Views",
+    "\\ShoppingApp\\ShoppingApp\\Views\\Home"
   ],
+  "SelectedNode": "\\ShoppingApp\\ShoppingApp\\Views\\Home\\Index.cshtml",
   "PreviewInSolutionExplorer": false
 }
