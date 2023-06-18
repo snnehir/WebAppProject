@@ -6,7 +6,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
+builder.Services.AddSession(opt =>
+{
+    opt.IdleTimeout = TimeSpan.FromMinutes(15);
+});
 var configuration = builder.Services.BuildServiceProvider().GetService<IConfiguration>();
 var connectionString = configuration.GetConnectionString("db");
 builder.Services.AddDbContext<ShoppingContext>(options =>
@@ -39,7 +42,7 @@ SeedData.SeedDatabase(context);
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
-app.UseAuthentication();
+app.UseSession();
 app.UseRouting();
 
 app.UseAuthorization();

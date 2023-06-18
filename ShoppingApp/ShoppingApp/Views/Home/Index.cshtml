@@ -34,3 +34,26 @@
         }
     </ul>
 </div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function(){
+            
+            $('.basket').on('click',function(){
+                let id = $(this).data('id');
+                console.log(id)
+                $.ajax({
+                    url:'/Shopping/AddProduct/'+id,
+                    type:'GET',
+                    success:function(data){
+                        console.log(data)
+                        location = location
+                    },
+                    error: function(err){
+                        console.log('error: ',error);
+                    }
+                });
+            });
+        });
+    </script>
+}

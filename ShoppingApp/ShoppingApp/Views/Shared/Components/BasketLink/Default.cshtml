@@ -1,0 +1,19 @@
+﻿@model ShoppingApp.Models.ProductCollectionModel
+@if (Model == null)
+{
+    <li class="nav-item nav-basket mx-1">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Shopping" asp-action="Index">
+            Cart <i class="fa-solid fa-basket-shopping fa-xl"></i>
+        </a>
+    </li>
+}
+else
+{
+
+    <li class="nav-item nav-basket mx-1">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Shopping" asp-action="Index">
+            Cart <i class="fa-solid fa-basket-shopping fa-xl"></i>
+            <span class="badge rounded-pill bg-black align-top tomato-bg">@Model.TotalProductsCount()</span>
+        </a>
+    </li>
+}

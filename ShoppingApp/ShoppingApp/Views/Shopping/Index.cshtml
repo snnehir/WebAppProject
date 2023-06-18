@@ -1,0 +1,85 @@
+﻿@model ProductCollectionModel
+@{
+    ViewData["Title"] = "Sepetim";
+}
+<h3>My Cart</h3>
+<hr />
+@if (Model.ProductItems.Count == 0)
+{
+    <div class="alert alert-danger">You did not add any product to your cart!</div>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <td>Unit Price</td>
+                <td>Quantity</td>
+                <td>Sub Total</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var productItem in Model.ProductItems)
+            {
+                <tr id="cart-item-@productItem.Product.Id">
+                    <td>@productItem.Product.Name</td>
+                    <td id="item-@productItem.Product.Id-price">@productItem.Product.UnitPrice₺</td>
+                    <td>
+                        <button class="btn text-center decrease-btn" data-id="@productItem.Product.Id">
+                            <i class="fa-solid fa-circle-minus fa-xl text-danger"></i>
+                        </button>
+                        <span>@productItem.Quantity</span>
+                        <button class="btn text-center increase-btn" data-id="@productItem.Product.Id">
+                            <i class="fa-solid fa-circle-plus fa-xl text-success"></i>
+                        </button>
+                    </td>
+                    <td><span id="item-@productItem.Product.Id-subtotal">@(productItem.Quantity * productItem.Product.UnitPrice)</span> $</td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="4">Total Price: <span id="total-price">@Model.TotalPrice()</span> $</td>
+            </tr>
+        </tfoot>
+    </table>
+    <button type="submit" class="btn btn-darkorange text-white"> Confirm Order </button>
+}
+
+@section Scripts{
+
+    <script>
+        $(document).ready(function () {
+            $(".increase-btn").on("click", function () {
+                let id = $(this).data('id')
+                $.ajax({
+                    url: '/Shopping/IncreaseProductQuantity/' + id,
+                    type: 'GET',
+                    success: function (data) {
+                        // console.log(data)
+                        location = location // refresh page
+                    },
+                    error: function (err) {
+                        console.log('error: ', error)
+                    }
+                })
+            })
+            $(".decrease-btn").on("click", function () {
+                let id = $(this).data('id')
+                $.ajax({
+                    url: '/Shopping/DecreaseProductQuantity/' + id,
+                    type: 'GET',
+                    success: function (data) {
+                        // console.log(data)
+                        location = location // refresh page
+                    },
+                    error: function (err) {
+                        console.log('error: ', error)
+                    }
+                })
+            })
+        })
+    </script>
+
+}
