@@ -23,6 +23,12 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+using var scope = app.Services.CreateScope();
+var services = scope.ServiceProvider;
+var context = services.GetRequiredService<ShoppingContext>();
+context.Database.EnsureCreated();
+SeedData.SeedDatabase(context);
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
