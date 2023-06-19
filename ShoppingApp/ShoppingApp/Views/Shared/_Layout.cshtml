@@ -31,32 +31,33 @@
                         </li>
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <li class="nav-item mx-1">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Profile">Profile</a>
-                            </li>
-                            <li class="nav-item mx-1">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Order" asp-action="Index">My Orders</a>
-                            </li>
-                            <li class="nav-item mx-1">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
-                            </li>
-                            <!-- only users that having "seller" role can view this nav link -->
-                            @if (User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Equals("Seller"))
+                        <li class="nav-item mx-1">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Profile">Profile</a>
+                        </li>
+                        <li class="nav-item mx-1">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Order" asp-action="Index">My Orders</a>
+                        </li>
+
+                            var role = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value;
+
+                        @if (role.Equals("Seller"))
                             {
-                                <li class="nav-item mx-1">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Sell" asp-action="Index">Sell</a>
-                                </li>
+                        <li class="nav-item nav-sell mx-1">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Sell" asp-action="Index">
+                                Sell <i class="fa-solid fa-camera fa-xl text-success"></i>
+                            </a>
+                        </li>
                             }
 
                         }
                         else
                         {
-                            <li class="nav-item mx-1">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
-                            </li>
-                            <li class="nav-item mx-1">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="SignUp">Sign Up</a>
-                            </li>
+                        <li class="nav-item mx-1">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+                        </li>
+                        <li class="nav-item mx-1">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="SignUp">Sign Up</a>
+                        </li>
                         }
                         @await Component.InvokeAsync("BasketLink")
                     </ul>
@@ -73,6 +74,15 @@
                         </div>
                     </form>
                 </div>
+                @if (User.Identity.IsAuthenticated)
+                {
+                <div class="nav-logout mx-1">
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">
+                        <i class="fa-solid fa-arrow-right-from-bracket fa-xl"></i> Logout
+                    </a>
+                </div>
+
+                }
             </div>
         </nav>
     </header>

@@ -57,3 +57,15 @@ body {
     .nav-basket > a > i {
         color: darkorange;
     }
+
+    .nav-sell > a {
+        border: 1px solid mediumseagreen;
+        border-radius: 4px;
+        color: mediumseagreen;
+    }
+    
+    .nav-logout > a {
+        border: 1px solid lightgray;
+        border-radius: 4px;
+        color: black;
+    }
