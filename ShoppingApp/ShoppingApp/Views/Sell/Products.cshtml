@@ -1,0 +1,53 @@
+﻿@model IEnumerable<ShoppingApp.Models.Entities.Product>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h3>My Products</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                Category
+            </th>
+            <th>
+                Unit Price
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                <img src="@item.ImageUrl" width="50" height="100" class="img-fluid">
+                <span>@item.Name</span>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UnitPrice) $
+            </td>
+            
+            @*
+            <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+            *@
+        </tr>
+}
+    </tbody>
+</table>
