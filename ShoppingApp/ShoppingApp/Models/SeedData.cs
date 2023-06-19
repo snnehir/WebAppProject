@@ -36,7 +36,7 @@ namespace ShoppingApp.Models
                     new User(){FullName = "John Doe", Email = "john@mail.com", Role = "Seller",
                                PasswordHash = "3zIc+HSDnvhRFCHtN6DDWZwiR3M9CSrllgAYY5JHqrFGg10cHEv8sj4GTiOhVQ7D5ednhwlolIAcm97GbeqUR8rv8YIAWg==", // password: 12345678
                                PasswordSalt = "kEGg/6iHWdP+QHrcSYG4dtzx+oiAu345SoXzc1hhvqYXxGO+EYqx2a8yYMsT7Q0gt2L2bRxsOkvzTG8FK/2cDCk7Gj5OSw=="},
-                    new User(){FullName = "John Doe", Email = "john@mail.com", Role = "Client",
+                    new User(){FullName = "Trudy Doe", Email = "trudy@mail.com", Role = "Client",
                                PasswordHash = "3zIc+HSDnvhRFCHtN6DDWZwiR3M9CSrllgAYY5JHqrFGg10cHEv8sj4GTiOhVQ7D5ednhwlolIAcm97GbeqUR8rv8YIAWg==", // password: 12345678
                                PasswordSalt = "kEGg/6iHWdP+QHrcSYG4dtzx+oiAu345SoXzc1hhvqYXxGO+EYqx2a8yYMsT7Q0gt2L2bRxsOkvzTG8FK/2cDCk7Gj5OSw=="},
                 };

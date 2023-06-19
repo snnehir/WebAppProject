@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
+using ShoppingApp.Helpers;
 using ShoppingApp.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -51,5 +52,6 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-
+// custom middleware to redirect error page when exception happens
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.Run();
